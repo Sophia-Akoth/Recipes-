@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+        reactapp:
+                image:
+                        19972044/recipe-project:latest
+                ports:
+                        - "80:80"       
