@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-        reactapp:
+        recipe-project:
                 image:
                         19972044/recipe-project:latest
                 ports:
