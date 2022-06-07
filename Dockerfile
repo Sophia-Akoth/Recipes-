@@ -11,6 +11,6 @@ RUN npm run build
 # Pull NGINX image
 FROM nginx:1.15
 # Move all build files to NGINX serve folder
-COPY --from=build /build /usr/share/nginx/html
+COPY --from=build /build /var/www/react-projects
 # Setup NGINX with config
 COPY ./nginx.conf /etc/nginx/sites-available/react-project
