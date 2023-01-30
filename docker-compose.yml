@@ -2,6 +2,6 @@ version: "3.3"
 services:
         recipe-project:
                 image:
-                        19972044/recipe-project:latest
+                        19972044/test-app:latest
                 ports:
-                        - "80:80"       
+                        - "8080:80"       

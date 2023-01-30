@@ -1,16 +1,21 @@
-# Pull node.js image
-FROM node:12-alpine as build 
+FROM node:19-alpine as build
 WORKDIR /
-# Install npm packages and cache this layer
 COPY package*.json /
 RUN npm install
-# Build copy all source files and build React app
 COPY ./ /
 RUN npm run build
 
-# Pull NGINX image
-FROM nginx:1.15
-# Move all build files to NGINX serve folder
-COPY --from=build /build /usr/share/nginx/html
-# Setup NGINX with config
-COPY ./nginx.conf /etc/nginx/sites-available/react-project
+# Pull the minimal Ubuntu image
+FROM ubuntu
+
+# Install Nginx
+RUN apt-get -y update && apt-get -y install nginx
+
+COPY  --from=build ./build /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the port for access
+EXPOSE 80/tcp
+
+# Run the Nginx server
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
