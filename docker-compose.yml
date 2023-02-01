@@ -1,7 +1,10 @@
-version: "3.3"
+version: '3'
+
 services:
-        recipe-project:
-                image:
-                        19972044/test-app:latest
-                ports:
-                        - "8080:80"       
+  web:
+    build: .
+    container_name: recipe-world
+    volumes:
+      - .:/recipe
+    ports:
+      - "8001:8001"     
