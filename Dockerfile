@@ -15,7 +15,7 @@ COPY  --from=build ./build /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose the port for access
-EXPOSE 80/tcp
+EXPOSE 8080:80
 
 # Run the Nginx server
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]

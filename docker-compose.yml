@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   web:
     build: .
@@ -7,4 +6,4 @@ services:
     volumes:
       - .:/recipe
     ports:
-      - "8001:8001"     
+      - "8002:8002"     
