@@ -51,7 +51,7 @@ const App = () => {
   }
   return (
     <div className="App">
-      <h2>Welcome to the Recipe Universe</h2>
+      <h2>Welcome to the Recipe World</h2>
       <form onSubmit={getSearch}className='search-form'>
         <input className='search-bar' type="text" value={search} 
          onChange={updateSearch}></input>
