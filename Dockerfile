@@ -1,21 +1,28 @@
-FROM node:19-alpine as build
-WORKDIR /
-COPY package*.json /
+# Use the official Node.js image as the build stage
+FROM node:14-alpine AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json and install dependencies
+COPY package*.json ./
 RUN npm install
-COPY ./ /
+
+# Copy the source code
+COPY . .
+
+# Build the application
 RUN npm run build
 
-# Pull the minimal Ubuntu image
-FROM ubuntu
+# Use the official Nginx image as the final stage
+FROM nginx:alpine
 
-# Install Nginx
-RUN apt-get -y update && apt-get -y install nginx
+# Copy the built files from the build stage to the Nginx web root
+COPY --from=build /app/build /usr/share/nginx/html
 
-COPY  --from=build ./build /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose the port for access
+# Expose the default Nginx port (80)
 EXPOSE 8080:80
 
-# Run the Nginx server
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
